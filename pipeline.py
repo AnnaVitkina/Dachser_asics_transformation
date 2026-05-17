@@ -76,7 +76,7 @@ _INPUT = Path("/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team 
 _PROCESSING = Path(
    "/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/processing"
 )
-_OUTPUT = Path("/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/output)
+_OUTPUT = Path("/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/output")
 
 INPUT_DIR = _INPUT if _INPUT.is_dir() else ROOT / "input"
 PROCESSING_DIR = _PROCESSING if _PROCESSING.is_dir() else ROOT / "processing"
