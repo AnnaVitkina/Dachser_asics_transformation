@@ -3,7 +3,14 @@ End-to-end tariff pipeline.
 
 Folder paths are fixed below (INPUT_DIR, PROCESSING_DIR, OUTPUT_DIR).
 You choose which .xlsx is transport costs and which is accessorial.
-Run: python pipeline.py
+
+Run locally:
+  python pipeline.py
+
+Colab / exec (set __file__ so imports work):
+  exec(open("/content/Dachser_asics_transformation/pipeline.py").read(), {
+      "__file__": "/content/Dachser_asics_transformation/pipeline.py",
+  })
 """
 
 from __future__ import annotations
@@ -18,6 +25,30 @@ from typing import Any
 
 import openpyxl
 from openpyxl import Workbook, load_workbook
+
+
+def _project_root() -> Path:
+    """Directory containing pipeline.py and main.py (works with python and exec)."""
+    try:
+        here = Path(__file__).resolve().parent
+        if (here / "main.py").is_file():
+            return here
+    except NameError:
+        pass
+    for candidate in (
+        Path.cwd(),
+        Path("/content/Dachser_asics_transformation"),
+        Path(r"C:\Users\avitkin\.cursor\projects_folders\RMT\Dachser Asics"),
+    ):
+        c = candidate.resolve()
+        if (c / "main.py").is_file():
+            return c
+    return Path.cwd().resolve()
+
+
+ROOT = _project_root()
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import main as transport_main
 import main_accessorial
@@ -41,9 +72,15 @@ from toll_to_excel import (
 from transformation_to_xlsx import transform_json_to_xlsx
 
 # --- Hardcoded folder paths (edit here if needed) ---
-INPUT_DIR = Path(r"/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/input")
-PROCESSING_DIR = Path(r"/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/processing")
-OUTPUT_DIR = Path(r"/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/output")
+_INPUT = Path("/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/input")
+_PROCESSING = Path(
+   "/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/processing"
+)
+_OUTPUT = Path("/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/output)
+
+INPUT_DIR = _INPUT if _INPUT.is_dir() else ROOT / "input"
+PROCESSING_DIR = _PROCESSING if _PROCESSING.is_dir() else ROOT / "processing"
+OUTPUT_DIR = _OUTPUT if _OUTPUT.is_dir() else ROOT / "output"
 
 
 @dataclass(frozen=True)
