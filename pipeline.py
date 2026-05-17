@@ -41,11 +41,9 @@ from toll_to_excel import (
 from transformation_to_xlsx import transform_json_to_xlsx
 
 # --- Hardcoded folder paths (edit here if needed) ---
-INPUT_DIR = Path(r"C:\Users\avitkin\.cursor\projects_folders\RMT\Dachser Asics\input")
-PROCESSING_DIR = Path(
-    r"C:\Users\avitkin\.cursor\projects_folders\RMT\Dachser Asics\processing"
-)
-OUTPUT_DIR = Path(r"C:\Users\avitkin\.cursor\projects_folders\RMT\Dachser Asics\output")
+INPUT_DIR = Path(r"/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/input")
+PROCESSING_DIR = Path(r"/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/processing")
+OUTPUT_DIR = Path(r"/content/drive/Shareddrives/FA Ops Europe: Rate Maintenance Team /Documents/AI Adoption RMT/RMT Asics/RMT_Dachser/output")
 
 
 @dataclass(frozen=True)
